@@ -1,4 +1,4 @@
-## Design Optimization: Combinational & Sequential
+## Design Optimization: Combinational & Sequential Circuits
 
 There are verious techniques to optimize combinational and sequential digital circuits to improve **performance**, **area** and **power efficiency**.
 
@@ -35,7 +35,7 @@ Use `Yosys` to run optimizations:
 read_liberty -lib sky130_fd_sc_hd__tt_025C_1v80.lib
 read_verilog opt_check.v
 synth -top opt_check
-opt_clean -purge // command to do the optimization 
+opt_clean -purge -------------------// command to do the optimization 
 abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
 ```
 
