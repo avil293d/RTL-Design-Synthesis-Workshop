@@ -71,6 +71,7 @@ module dff_asyncres (input clk, input async_reset, input d, output reg q);
       q <= d;
 endmodule
 ```
+![dff](dff_asyncro.png)
 
 This is a D Flip-Flop with an asynchronous reset.
 
@@ -94,7 +95,7 @@ module dff_syncres (input clk, input sync_reset, input d, output reg q);
       q <= d;
 endmodule
 ```
-
+![dff](dff_sync.png)
 This D Flip-Flop has a synchronous reset.
 
 The always block is only sensitive to posedge clk.
@@ -118,6 +119,8 @@ begin
 end
 endmodule
 ```
+![dff](/Day2/dff_asyncro_sync.png)
+
 If async_reset is high:
 
 - q is immediately reset to 0.
