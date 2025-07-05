@@ -97,3 +97,28 @@ always @(*) y = a & b;
 ```verilog
 always @(posedge clk) q <= d;
 ```
+
+### The order of blocking assignments in a combinational always block is crucial, because blocking assignments execute sequentially in the order written. If the order is incorrect, it can produce wrong simulation results, logic mismatches after synthesis or even unintentional latch inference due to incomplete assignment coverage. 
+
+### Example
+```verilog
+module blocking_caveat (input a, input b, input c, output reg d);
+  reg x;
+  always @ (*) begin
+    d = x & c;
+    x = a | b;
+  end
+endmodule
+```
+Simulation Result :
+![wrong](Wrong_order.png)
+here the order of assignments causes d to use the old value of x not the newly computed value .
+
+Corrected order :
+```verilog
+always @ (*) begin
+  x = a | b;
+  d = x & c;
+end
+```
+![wrong](right_order.png)
