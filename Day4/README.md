@@ -68,11 +68,11 @@ endmodule
 ![](simulation_mux.png)
 
 ### Synthesis Result :
-![](badmux_synth.png)
+![](bad_mux.png)
 ### GLS Result :
 ![](GLS_mux.png)
 
-- The simulation result is incorrect because the output is evaluated only when ```sel``` changes, which causes a mismatch between simulation and synthesis .
+- The first simulation result is incorrect because the output is evaluated only when ```sel``` changes, which causes a mismatch between simulation and synthesis .
 - Also the non-blocking assignments in the combinational circuit might create implied latches which leads to glitches .
 
 
