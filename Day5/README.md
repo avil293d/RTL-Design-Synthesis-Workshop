@@ -170,3 +170,7 @@ endmodule
 ```
 ### Synthesis Result :
 ![](mux_generate.png)
+### Simulation Result :
+![](generate_block_use.png)
+
+#### This verifies the correct functionality of the generated multiplexer.

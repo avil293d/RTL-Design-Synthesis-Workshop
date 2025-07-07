@@ -684,3 +684,7 @@ endmodule
 ```
 ### Synthesis Result :
 ![](Day5/mux_generate.png)
+### Simulation Result :
+![](Day5/generate_block_use.png)
+
+#### This verifies the correct functionality of the generated multiplexer.
