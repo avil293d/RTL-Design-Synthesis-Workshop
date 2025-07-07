@@ -119,7 +119,7 @@ begin
 end
 endmodule
 ```
-![dff](/Day2/dff_asyncro_sync.png)
+![dff](dff_asyncro_sync.png)
 
 If async_reset is high:
 
