@@ -28,56 +28,129 @@ end else begin
 end
 ```
 
----
-
 ## Inferred Latches in Verilog
 
-A latch is inferred when a combinational logic block does not assign a variable on all execution paths.
+1. A latch is inferred when a combinational logic block does not assign a variable on all execution paths.
 
-### Example
+### Example : Incomplete_if
 
 ```verilog
-module ex (
+module incomplete_assign (
     input wire a, b, sel,
     output reg y
 );
     always @(a, b, sel) begin
         if (sel == 1'b1)
-            y = a; // No else branch
+            y = a;  
     end
 endmodule
 ```
 
 **Issue:** When `sel` is 0, `y` is not assigned, so a latch is inferred.
 
+### Synthesis Result :
+![](incomplete_assign..png)
+
 **Solution:** Add an else or default assignment.
 
 ```verilog
-module ex (
+module incomplete_assign_default (
     input wire a, b, sel,
     output reg y
 );
     always @(a, b, sel) begin
-        case(sel)
-            1'b1 : y = a;
-            default : y = 1'b0;
-        endcase
+        if (sel == 1'b1)
+            y = a;  
+        else
+            y = b;   // Default value when sel is 0
     end
 endmodule
+
 ```
+### Synthesis Result :
+![](incomplete_assign_default.png)
+
+
+## Case Statements in Verilog
+
+`case` statements allow multi-way branching inside procedural blocks such as `always` ,  `initial` , tasks  or functions.
+
+### Syntax :
+
+```verilog
+case (expression)
+    value1: begin
+        // Code if expression == value1
+    end
+    value2: begin
+        // Code if expression == value2
+    end
+    default: begin
+        // Code if no values match
+    end
+endcase
+```
+
+* `expression` is compared to each `value` in order.
+* The `default` branch is optional but recommended to avoid latches.
+
+### Example
+
+```verilog
+case (sel)
+    2'b00: y = a;
+    2'b01: y = b;
+    2'b10: y = c;
+    default: y = d;  // Executes if no other cases match
+endcase
+```
+
+
+* Always cover all possible values or include `default` to prevent unintended latches.
+
+
+### Example 2 : Incomplete_case
+```verilog
+module incomp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : y = i0;
+		2'b01 : y = i1;
+	endcase
+end
+endmodule
+```
+![](incomplete_case.png)
+**Solution :** Add an default assignment.
+
+```verilog
+module comp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : y = i0;
+		2'b01 : y = i1;
+		default : y = i2;
+	endcase
+end
+endmodule
+```
+![](comp_case.png)
+
+## Partial Assignment : 
+
 
 ## For Loops in Verilog
 
 For loops repeat a block of code multiple times inside procedural blocks. The iteration count must be fixed at compile time.
 
-### Syntax
-
+### Syntax :
 ```verilog
 for (initialization; condition; increment) begin
     // Statements
 end
 ```
-
 
 ## Generate Blocks in Verilog
 
