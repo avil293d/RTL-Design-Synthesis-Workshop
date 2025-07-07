@@ -138,9 +138,6 @@ endmodule
 ```
 ![](comp_case.png)
 
-## Partial Assignment : 
-
-
 ## For Loops in Verilog
 
 For loops repeat a block of code multiple times inside procedural blocks. The iteration count must be fixed at compile time.
@@ -155,11 +152,21 @@ end
 ## Generate Blocks in Verilog
 
 Generate blocks create hardware at compile time. Commonly used for repetitive structures.
+
+### Example : Creating a 4:1 MUX 
 ```verilog
-genvar i;
-generate
-    for (i = 0; i < 4; i = i + 1) begin : gen_loop
-        and_gate and_inst (.a(in[i]), .b(in[i+1]), .y(out[i]));
-    end
-endgenerate
+module mux_generate (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
+wire [3:0] i_int;
+assign i_int = {i3,i2,i1,i0};
+integer k;
+always @ (*)
+begin
+for(k = 0; k < 4; k=k+1) begin
+	if(k == sel)
+		y = i_int[k];
+end
+end
+endmodule
 ```
+### Synthesis Result :
+![](mux_generate.png)
