@@ -1,6 +1,6 @@
 ## If-Else Statements in Verilog
 
-If-else statements allow conditional execution inside procedural blocks such as `always`, `initial`, tasks, or functions.
+If-else statements allow conditional execution inside procedural blocks such as `always` ,  `initial` , tasks or functions.
 
 ### Syntax
 
